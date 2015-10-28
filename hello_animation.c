@@ -1,11 +1,17 @@
 /**
- * hello_image.c - Initializes SDL, loads an image, And displys it in a window
+ * hello_animation.c - Animates hello.png scrolling up the window
  */
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_image.h>
+
+#define WINDOW_WIDTH (640)
+#define WINDOW_HEIGHT (480)
+
+// speed in pixels/second
+#define SCROLL_SPEED (300)
 
 int main(void) {
     // attempt to initialize graphics and timer system
@@ -17,7 +23,8 @@ int main(void) {
     SDL_Window* win = SDL_CreateWindow("Hello, CS50!",
                                        SDL_WINDOWPOS_CENTERED,
                                        SDL_WINDOWPOS_CENTERED,
-                                       640, 480, SDL_WINDOW_INPUT_GRABBED);
+                                       WINDOW_WIDTH, WINDOW_HEIGHT,
+                                       SDL_WINDOW_INPUT_GRABBED);
     if (!win) {
         printf("error creating window: %s\n", SDL_GetError());
         SDL_Quit();
@@ -55,15 +62,38 @@ int main(void) {
         return 1;
     }
 
-    // clear the window
-    SDL_RenderClear(rend);
-    
-    // draw the image to the window
-    SDL_RenderCopy(rend, tex, NULL, NULL);
-    SDL_RenderPresent(rend);
+    // struct to hold the position and size of the sprite
+    SDL_Rect dest;
 
-    // wait a few seconds
-    SDL_Delay(5000);
+    // get the dimensions of texture
+    SDL_QueryTexture(tex, NULL, NULL, &dest.w, &dest.h);
+
+    // position the sprite at the bottom center of the window
+    // origin is the top left corner, positive y is down
+    dest.x = (WINDOW_WIDTH - dest.w) / 2;
+
+    // require float resolution for y position
+    float y_pos = WINDOW_HEIGHT;
+
+    // animation loop
+    while (dest.y >= -dest.h) {
+        
+        // clear the window
+        SDL_RenderClear(rend);
+
+        // set the y position in the struct
+        dest.y = (int) y_pos;
+    
+        // draw the image to the window
+        SDL_RenderCopy(rend, tex, NULL, &dest);
+        SDL_RenderPresent(rend);
+
+        // update sprite position
+        y_pos -= (float) SCROLL_SPEED / 60;
+
+        // wait 1/60th of a second
+        SDL_Delay(1000/60);
+    }
     
     // clean up resources before exiting
     SDL_DestroyTexture(tex);
