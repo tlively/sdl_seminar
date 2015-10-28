@@ -17,7 +17,7 @@ int main(void) {
     SDL_Window* win = SDL_CreateWindow("Hello, CS50!",
                                        SDL_WINDOWPOS_CENTERED,
                                        SDL_WINDOWPOS_CENTERED,
-                                       640, 480, SDL_WINDOW_INPUT_GRABBED);
+                                       640, 480, 0);
     if (!win) {
         printf("error creating window: %s\n", SDL_GetError());
         SDL_Quit();

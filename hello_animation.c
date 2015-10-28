@@ -23,8 +23,7 @@ int main(void) {
     SDL_Window* win = SDL_CreateWindow("Hello, CS50!",
                                        SDL_WINDOWPOS_CENTERED,
                                        SDL_WINDOWPOS_CENTERED,
-                                       WINDOW_WIDTH, WINDOW_HEIGHT,
-                                       SDL_WINDOW_INPUT_GRABBED);
+                                       WINDOW_WIDTH, WINDOW_HEIGHT,0);
     if (!win) {
         printf("error creating window: %s\n", SDL_GetError());
         SDL_Quit();
@@ -32,7 +31,7 @@ int main(void) {
     }
 
     // create a renderer, which sets up the graphics hardware
-    Uint32 render_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+    Uint32 render_flags = SDL_RENDERER_ACCELERATED;
     SDL_Renderer* rend = SDL_CreateRenderer(win, -1, render_flags);
     if (!rend) {
       printf("error creating renderer: %s\n", SDL_GetError());
