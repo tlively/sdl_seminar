@@ -63,7 +63,7 @@ int main(void) {
     SDL_RenderPresent(rend);
 
     // wait a few seconds
-    SDL_Delay(10000);
+    SDL_Delay(5000);
     
     // clean up resources before exiting
     SDL_DestroyTexture(tex);

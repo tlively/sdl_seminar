@@ -19,11 +19,12 @@ int main(void) {
                                        640, 480, SDL_WINDOW_INPUT_GRABBED);
     if (!win) {
         printf("error creating window: %s\n", SDL_GetError());
+        SDL_Quit();
 	return 1;
     }
 
     // wait a few seconds
-    SDL_Delay(10000);
+    SDL_Delay(5000);
     
     // clean up resources before exiting
     SDL_DestroyWindow(win);
