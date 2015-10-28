@@ -1,14 +1,16 @@
 /**
- * hello_window.c - Initializes SDL and creates a window
+ * hello2_window.c - Initializes SDL and creates a window
  */
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_timer.h>
 
-int main(void) {
+int main(void)
+{
     // attempt to initialize graphics and timer system
-    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0) {
+    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0)
+    {
         printf("error initializing SDL: %s\n", SDL_GetError());
         return 1;
     }
@@ -17,10 +19,11 @@ int main(void) {
                                        SDL_WINDOWPOS_CENTERED,
                                        SDL_WINDOWPOS_CENTERED,
                                        640, 480, 0);
-    if (!win) {
+    if (!win)
+    {
         printf("error creating window: %s\n", SDL_GetError());
         SDL_Quit();
-	return 1;
+	    return 1;
     }
 
     // wait a few seconds
